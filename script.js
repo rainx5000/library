@@ -20,7 +20,9 @@ addBook.addEventListener('click', (e) => {
 })
 
 formBtn.addEventListener('click', (e) => {
+    if (pages.value > 0 && author.value.length > 0 && title.value.length > 0) {
     formToggle.classList.toggle('display');
+    }
 })
 
 formToggle.addEventListener('click', (e) => {
@@ -39,9 +41,6 @@ form.addEventListener('submit', (e) => {
 
     let book = new Book(title.value, author.value, pages.value, read.checked);
     addBookToLibrary(book, count);
-
-    
-
 
     title.value = '';
     author.value = '';
