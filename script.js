@@ -26,7 +26,7 @@ formBtn.addEventListener('click', (e) => {
     }
 })
 
-formToggle.addEventListener('click', (e) => {
+formToggle.addEventListener('mousedown', (e) => {
     if (e.target.className === 'formBackground') {
     formToggle.classList.toggle('display');
     }
