@@ -7,7 +7,24 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Hello Americans</h1>
+    <h1>My Library</h1>
+    <div class="container">
+        <div class="controls"><button class="addBook" id="addBook">Add</button></div>
+        <div class="formBackground display">
+            <form action="" id="form">
+                <input type="text" id="title" placeholder="Title">
+                <input type="text" id="author" placeholder="Author">
+                <input type="text" id="pagesNum" placeholder="Pages">
+                <label for="read">Read?
+                <input type="checkbox" id="read">
+            </label>
+                <button id="formSubmit">Submit</button>
+            </form>
+        </div>
+        <div id="allBooks" class="allBooks">
+
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
