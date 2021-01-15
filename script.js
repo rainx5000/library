@@ -20,6 +20,7 @@ addBook.addEventListener('click', (e) => {
 })
 
 formBtn.addEventListener('click', (e) => {
+
     if (pages.value > 0 && author.value.length > 0 && title.value.length > 0) {
     formToggle.classList.toggle('display');
     }
