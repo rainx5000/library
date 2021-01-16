@@ -4,6 +4,7 @@ const addBook = document.querySelector('#addBook');
 const formToggle = document.querySelector('.formBackground');
 const form = document.querySelector('#form');
 const formBtn = document.querySelector('#formSubmit');
+const myLibrary = [];
 
 
 // form inputs
@@ -13,39 +14,29 @@ const title = document.querySelector('#title')
 const pages = document.querySelector('#pagesNum')
 //form inputs
 
-// document.body.addEventListener('click', (e) => {
-//     console.dir(e.target)
-// })
-
-addBook.addEventListener('click', (e) => {
+addBook.addEventListener('click', (e) => {//opens new book form
     formToggle.classList.toggle('display')
 })
 
-formBtn.addEventListener('click', (e) => {
-
-    if (pages.value > 0 && author.value.length > 0 && title.value.length > 0) {
+formBtn.addEventListener('click', (e) => {//submits form
+    if (pages.value > 0 && author.value.length > 0 && title.value.length > 0) {//must enter fields to submit
     formToggle.classList.toggle('display');
     }
 })
 
-formToggle.addEventListener('mousedown', (e) => {
+formToggle.addEventListener('mousedown', (e) => {//closes form if click outside of form//does not reset it
     if (e.target.className === 'formBackground') {
     formToggle.classList.toggle('display');
     }
 })
 
-
-
-const myLibrary = [];
-let count = 0;
-
 form.addEventListener('submit', (e) => {
     e.preventDefault(e);
 
     let book = new Book(title.value, author.value, pages.value, read.checked);
-    addBookToLibrary(book, count);
+    addBookToLibrary(book);
 
-    title.value = '';
+    title.value = '';//resets value after new book gets added
     author.value = '';
     pages.value = '';
     read.checked = '';
@@ -59,15 +50,11 @@ const Book = function(title, author, pages, read) {
     this.read = read;
 }
 
-
-function addBookToLibrary(book, num) {
+function addBookToLibrary(book) {
     myLibrary.push(book)
-
-    for (let i = num; i < myLibrary.length; i++) {
 
         let newBook = document.createElement('div');
         booksLocation.append(newBook);
-        console.log(read.checked)
         newBook.classList.add('newBook', `${read.checked? 'readColor': 'unreadColor'}`);
         let bookTitle = document.createElement('h2');
         bookTitle.textContent = `"${title.value}"`;
@@ -88,7 +75,12 @@ function addBookToLibrary(book, num) {
         removeBtn.classList.add('removeBtn');
 
         removeBtn.addEventListener('click', (e) => {
-            removeBtn.parentElement.remove();
+           for (let j = 0; j < myLibrary.length; j++) {
+            if (`"${myLibrary[j].title}"` === removeBtn.parentElement.firstElementChild.textContent) {
+                myLibrary.splice(j, 1)
+                removeBtn.parentElement.remove();
+            }
+           }
         })
 
         if (bookRead.textContent === 'Unread') {
@@ -109,11 +101,7 @@ function addBookToLibrary(book, num) {
                 bookRead.classList.remove('unreadBtnColor');
             }
         })
-        count++
-    }
 }
-
-
 
 
     
