@@ -1,8 +1,10 @@
 const booksContainer = document.querySelector('#allBooks');
+const booksLocation = document.querySelector('#mainContent')
 const addBook = document.querySelector('#addBook');
 const formToggle = document.querySelector('.formBackground');
 const form = document.querySelector('#form');
 const formBtn = document.querySelector('#formSubmit');
+
 
 // form inputs
 const read = document.querySelector('#read')
@@ -64,10 +66,11 @@ function addBookToLibrary(book, num) {
     for (let i = num; i < myLibrary.length; i++) {
 
         let newBook = document.createElement('div');
-        booksContainer.append(newBook);
-        newBook.classList.add('newBook', `${read.value? `readColor`: 'UnreadColor'}`);
+        booksLocation.append(newBook);
+        console.log(read.checked)
+        newBook.classList.add('newBook', `${read.checked? 'readColor': 'unreadColor'}`);
         let bookTitle = document.createElement('h2');
-        bookTitle.textContent = title.value;
+        bookTitle.textContent = `"${title.value}"`;
         let bookAuthor = document.createElement('h2');
         bookAuthor.textContent = author.value;
         let bookPages = document.createElement('h2');
@@ -78,14 +81,33 @@ function addBookToLibrary(book, num) {
         let removeBtn = document.createElement('button');
         removeBtn.textContent = 'Remove';
         newBook.append(bookTitle, bookAuthor, bookPages, bookRead, removeBtn);
+        bookTitle.classList.add('title');
+        bookAuthor.classList.add('author');
+        bookPages.classList.add('pages');
+        bookRead.classList.add('readBtn');
+        removeBtn.classList.add('removeBtn');
 
         removeBtn.addEventListener('click', (e) => {
             removeBtn.parentElement.remove();
         })
+
+        if (bookRead.textContent === 'Unread') {
+            bookRead.classList.add('unreadBtnColor');
+
+        } else {
+            bookRead.classList.add('readBtnColor');
+        }
         bookRead.addEventListener('click', (e) => {
             newBook.classList.toggle('unreadColor')
             newBook.classList.toggle('readColor')
             bookRead.textContent = `${newBook.classList.contains('readColor') ? 'Read' : 'Unread'}`
+            if (bookRead.textContent === 'Unread') {
+                bookRead.classList.add('unreadBtnColor');
+                bookRead.classList.remove('readBtnColor');
+            } else {
+                bookRead.classList.add('readBtnColor');
+                bookRead.classList.remove('unreadBtnColor');
+            }
         })
         count++
     }
